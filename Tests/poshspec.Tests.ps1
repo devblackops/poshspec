@@ -365,6 +365,20 @@ Describe 'Test Functions' {
                 $results.Expression | Should Be "GetVolume -Name 'C' | Select-Object -ExpandProperty 'DriveType' | Should Be 'Fixed'"
             }
         }
+
+        Context 'WindowsFeature' {
+
+            $results = WindowsFeature TelnetClient State { should be 'Disabled' }
+
+            It "Should return the correct test Name" {
+                $results.Name | Should Be "WindowsFeature property 'state' for 'TelnetClient' Should Be 'Disabled'"
+            }
+
+            It "Should return the correct test Expression" {
+                $results.Expression | Should Be "Get-WindowsOptionalFeature -Online -FeatureName 'TelnetClient' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty 'State' | Should Be 'Disabled'"
+            }
+
+        }
     }
 }
 
